@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo Building your project =========>
+name=<name of docker image file>
+tag=$(git log -1 --pretty=%h)
+img=$name:$tag
+latest=$name:latest
+
+echo Build the docker file with tag - $tag =========>
+docker build -t $img .
+
+echo Link the newly created tag with latest tag =========>
+docker tag $img $latest
+
+echo Push the docker image wit tags - :$tag and :latest =========>
+docker push $name
